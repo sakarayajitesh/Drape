@@ -1,0 +1,1 @@
+enum OccasionLabel { casual, active }
