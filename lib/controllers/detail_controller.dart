@@ -1,15 +1,16 @@
-import 'package:drape/database/database_provider.dart';
 import 'package:drape/model/item.dart';
 import 'package:drape/model/outfit.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../main.dart';
 import '../model/laundry.dart';
 
 class DetailController extends GetxController {
   late Item item;
-  late DatabaseProvider databaseProvider;
+  final formKey = GlobalKey<FormState>();
 
-  DetailController(this.databaseProvider);
+  DetailController();
 
   @override
   void onInit() {
@@ -18,6 +19,7 @@ class DetailController extends GetxController {
   }
 
   onClickSave() async {
+    formKey.currentState?.save();
     await databaseProvider.itemExecutor.modify(item);
     Get.back(result: true);
   }

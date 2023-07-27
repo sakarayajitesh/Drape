@@ -6,7 +6,7 @@ import 'package:sqflite/sqflite.dart';
 
 class DatabaseProvider {
   late Database db;
-  final version = 2;
+  final version = 5;
 
   late ItemExecutor itemExecutor;
   late OutfitExecutor outfitExecutor;
@@ -17,7 +17,7 @@ class DatabaseProvider {
     db = await openDatabase(path, version: version,
         onCreate: (Database db, int version) async {
       await db.execute(
-        'CREATE TABLE ${ItemExecutor.table} (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, image BLOB, type TEXT, color TEXT, occasion TEXT)',
+        'CREATE TABLE ${ItemExecutor.table} (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, image BLOB, type TEXT, color TEXT, occasion TEXT, price TEXT)',
       );
       await db.execute(
         'CREATE TABLE ${OutfitExecutor.table} (id INTEGER PRIMARY KEY AUTOINCREMENT, itemId INTEGER, timestamp INTEGER, image BLOB)',
@@ -26,9 +26,11 @@ class DatabaseProvider {
         'CREATE TABLE ${LaundryExecutor.table} (id INTEGER PRIMARY KEY AUTOINCREMENT, itemId INTEGER, timestamp INTEGER, image BLOB)',
       );
     }, onUpgrade: (db, oldVersion, newVersion) async {
-      await db.execute(
-        'CREATE TABLE ${LaundryExecutor.table} (id INTEGER PRIMARY KEY AUTOINCREMENT, itemId INTEGER, timestamp INTEGER, image BLOB)',
-      );
+      if (oldVersion < newVersion) {
+        await db.execute(
+          'ALTER TABLE ${ItemExecutor.table} ADD COLUMN price TEXT',
+        );
+      }
     });
     itemExecutor = ItemExecutor(db);
     outfitExecutor = OutfitExecutor(db);

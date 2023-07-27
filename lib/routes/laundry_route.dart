@@ -1,98 +1,60 @@
 import 'package:drape/controllers/laundry_controller.dart';
+import 'package:drape/controllers/laundry_list_view_controller.dart';
 import 'package:drape/widgets/image_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LaundryRoute extends StatelessWidget {
+class LaundryRoute extends GetView<LaundryController> {
   const LaundryRoute({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final controller = LaundryController();
+    controller.fetchData();
     return Scaffold(
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Hanger",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.0,
-                      ),
-                    ),
-                    const Divider(),
-                    const SizedBox(
-                      height: 16.0,
-                    ),
-                    Obx(
-                      () => controller.hangerList.isNotEmpty
-                          ? Wrap(
-                              spacing: 8.0,
-                              runSpacing: 8.0,
-                              children: controller.hangerList
-                                  .map(
-                                    (element) => SizedBox(
-                                      height: 100.0,
-                                      child: ImageTile(image: element.image),
-                                    ),
-                                  )
-                                  .toList(),
-                            )
-                          : const SizedBox(
-                              height: 100,
-                              child: Center(
-                                child: Text("No items here"),
-                              ),
-                            ),
-                    ),
-                  ],
-                ),
+              TabBar.secondary(
+                controller: controller.tabController,
+                tabs: [
+                  Obx(() => LaundryTabOption(
+                        title: 'Fresh',
+                        count: controller.freshList.length,
+                      )),
+                  Obx(() => LaundryTabOption(
+                        title: 'Hanger',
+                        count: controller.hangerList.length,
+                      )),
+                  Obx(() => LaundryTabOption(
+                        title: 'Basket',
+                        count: controller.basketList.length,
+                      )),
+                ],
               ),
-              const SizedBox(
-                height: 16.0,
-              ),
+              const SizedBox(height: 16.0),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: TabBarView(
+                  controller: controller.tabController,
                   children: [
-                    const Text(
-                      "Basket",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.0,
-                      ),
-                    ),
-                    const Divider(),
-                    const SizedBox(
-                      height: 16.0,
-                    ),
-                    Obx(
-                      () => controller.basketList.isNotEmpty
-                          ? Wrap(
-                              spacing: 8.0,
-                              runSpacing: 8.0,
-                              children: controller.basketList
-                                  .map(
-                                    (element) => SizedBox(
-                                      height: 100.0,
-                                      child: ImageTile(image: element.image),
-                                    ),
-                                  )
-                                  .toList(),
-                            )
-                          : const SizedBox(
-                              height: 100,
-                              child: Center(
-                                child: Text("No items here"),
-                              ),
-                            ),
-                    ),
+                    LaundryListView(list: controller.freshList),
+                    LaundryListView(list: controller.hangerList),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        LaundryListView(list: controller.basketList),
+                        SizedBox(
+                          height: 50.0,
+                          width: double.infinity,
+                          child: FilledButton(
+                            onPressed: () {},
+                            child: const Text('Wash'),
+                          ),
+                        )
+                      ],
+                    )
                   ],
                 ),
               ),
@@ -100,6 +62,64 @@ class LaundryRoute extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class LaundryTabOption extends StatelessWidget {
+  final String title;
+  final int count;
+
+  const LaundryTabOption({super.key, required this.title, required this.count});
+
+  @override
+  Widget build(BuildContext context) {
+    return Tab(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(title),
+          const SizedBox(width: 8.0),
+          CircleAvatar(
+            radius: 12.0,
+            child: Center(
+              child: Text(
+                count.toString(),
+                style: const TextStyle(fontSize: 12.0),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class LaundryListView extends GetView<LaundryListViewController>   {
+  final List list;
+
+  const LaundryListView({super.key, required this.list});
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => list.isNotEmpty
+          ? Wrap(
+              spacing: controller.rowSpacing,
+              runSpacing: 8.0,
+              children: list
+                  .map(
+                    (element) => SizedBox(
+                      width: controller.width,
+                      child: ImageTile(image: element.image),
+                    ),
+                  )
+                  .toList(),
+            )
+          : const SizedBox(
+              height: 100,
+              child: Center(child: Text("No items here")),
+            ),
     );
   }
 }

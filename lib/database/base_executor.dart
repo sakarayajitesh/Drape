@@ -9,7 +9,11 @@ base class BaseExecutor {
     return await _db.rawQuery(sql);
   }
 
-  Future<dynamic> insert(table, dynamic data) async {
+  Future<dynamic> query(table, {List<String>? columns, groupBy}) async {
+    return await _db.query(table, columns: columns, groupBy: groupBy);
+  }
+
+  Future<dynamic> insert(table, data) async {
     return await _db.insert(
       table,
       data,

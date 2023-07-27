@@ -5,14 +5,15 @@ class Item {
   String? type;
   String? color;
   String? occasion;
+  String? price;
 
-  Item({
-    required this.name,
-    required this.image,
-    this.type,
-    this.color,
-    this.occasion,
-  });
+  Item(
+      {required this.name,
+      required this.image,
+      this.type,
+      this.color,
+      this.occasion,
+      this.price});
 
   Map<String, dynamic> toMap() {
     return {
@@ -21,6 +22,7 @@ class Item {
       'type': type,
       'color': color,
       'occasion': occasion,
+      'price': price
     };
   }
 
@@ -31,10 +33,11 @@ class Item {
     type = map["type"] as String?;
     color = map["color"] as String?;
     occasion = map["occasion"] as String?;
+    price = map["price"] as String?;
   }
 
   @override
   String toString() {
-    return 'Item{id: $id, name: $name, type: $type, color: $color, occasion: $occasion}';
+    return 'Item{id: $id, name: $name, type: $type, color: $color, occasion: $occasion, price: $price}';
   }
 }

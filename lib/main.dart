@@ -18,25 +18,25 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: 'Drape',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          colorSchemeSeed: const Color(0xff6750a4),
-          useMaterial3: true,
-          textTheme: GoogleFonts.openSansTextTheme(),
-          navigationBarTheme: NavigationBarThemeData(
-            labelTextStyle: MaterialStateProperty.resolveWith(
-              (states) => TextStyle(
-                fontWeight: states.contains(MaterialState.selected)
-                    ? FontWeight.bold
-                    : FontWeight.normal,
-              ),
+        colorSchemeSeed: const Color(0xff6750a4),
+        useMaterial3: true,
+        textTheme: GoogleFonts.openSansTextTheme(),
+        navigationBarTheme: NavigationBarThemeData(
+          labelTextStyle: MaterialStateProperty.resolveWith(
+            (states) => TextStyle(
+              fontWeight: states.contains(MaterialState.selected)
+                  ? FontWeight.bold
+                  : FontWeight.normal,
             ),
-          )),
+          ),
+        ),
+      ),
       home: HomeRoute(),
     );
   }

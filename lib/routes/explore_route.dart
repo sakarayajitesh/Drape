@@ -1,6 +1,6 @@
 import 'package:drape/controllers/explore_controller.dart';
 import 'package:drape/main.dart';
-import 'package:drape/widgets/stats_tile.dart';
+import 'package:drape/widgets/analytics.dart';
 import 'package:drape/widgets/todays_outfit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,11 +13,11 @@ class ExploreRoute extends StatelessWidget {
     final controller = Get.put(ExploreController(databaseProvider));
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        label: const Text("Outfit"),
-        icon: const Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton.extended(
+      //   onPressed: () {},
+      //   label: const Text("Outfit"),
+      //   icon: const Icon(Icons.add),
+      // ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -41,7 +41,10 @@ class ExploreRoute extends StatelessWidget {
               const SizedBox(
                 height: 16.0,
               ),
-              const StatsTile()
+              const Padding(
+                padding: EdgeInsets.only(left: 8.0),
+                child: Analytics(),
+              )
             ],
           ),
         ),

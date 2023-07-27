@@ -34,4 +34,10 @@ base class ItemExecutor {
   Future<void> modify(Item data) async {
     await _baseExecutor.update(table, data.toMap(), data.id);
   }
+
+  Future<List> query({List<String>? columns, groupBy}) async {
+    final List result =
+        await _baseExecutor.query(table, columns: columns, groupBy: groupBy);
+    return result;
+  }
 }
