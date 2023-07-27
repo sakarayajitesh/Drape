@@ -27,9 +27,9 @@ class DatabaseProvider {
       );
     }, onUpgrade: (db, oldVersion, newVersion) async {
       if (oldVersion < newVersion) {
-        await db.execute(
-          'ALTER TABLE ${ItemExecutor.table} ADD COLUMN price TEXT',
-        );
+        // await db.execute(
+        //   'ALTER TABLE ${ItemExecutor.table} ADD COLUMN price TEXT',
+        // );
       }
     });
     itemExecutor = ItemExecutor(db);
