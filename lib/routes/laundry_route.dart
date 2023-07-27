@@ -12,54 +12,63 @@ class LaundryRoute extends GetView<LaundryController> {
     controller.fetchData();
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              TabBar.secondary(
+        child: Column(
+          children: [
+            TabBar.secondary(
+              controller: controller.tabController,
+              tabs: [
+                Obx(() => LaundryTabOption(
+                      title: 'Fresh',
+                      count: controller.freshList.length,
+                    )),
+                Obx(() => LaundryTabOption(
+                      title: 'Hanger',
+                      count: controller.hangerList.length,
+                    )),
+                Obx(() => LaundryTabOption(
+                      title: 'Basket',
+                      count: controller.basketList.length,
+                    )),
+              ],
+            ),
+            const SizedBox(height: 16.0),
+            Expanded(
+              child: TabBarView(
                 controller: controller.tabController,
-                tabs: [
-                  Obx(() => LaundryTabOption(
-                        title: 'Fresh',
-                        count: controller.freshList.length,
-                      )),
-                  Obx(() => LaundryTabOption(
-                        title: 'Hanger',
-                        count: controller.hangerList.length,
-                      )),
-                  Obx(() => LaundryTabOption(
-                        title: 'Basket',
-                        count: controller.basketList.length,
-                      )),
-                ],
-              ),
-              const SizedBox(height: 16.0),
-              Expanded(
-                child: TabBarView(
-                  controller: controller.tabController,
-                  children: [
-                    LaundryListView(list: controller.freshList),
-                    LaundryListView(list: controller.hangerList),
-                    Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: LaundryListView(list: controller.freshList),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: LaundryListView(list: controller.hangerList),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         LaundryListView(list: controller.basketList),
-                        SizedBox(
-                          height: 50.0,
-                          width: double.infinity,
-                          child: FilledButton(
-                            onPressed: () {},
-                            child: const Text('Wash'),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 16.0),
+                          child: SizedBox(
+                            height: 50.0,
+                            width: double.infinity,
+                            child: FilledButton(
+                              onPressed: () {},
+                              child: const Text('Wash'),
+                            ),
                           ),
-                        )
+                        ),
                       ],
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
