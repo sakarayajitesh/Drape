@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorSchemeSeed: const Color(0xff6750a4),
         useMaterial3: true,
-        textTheme: GoogleFonts.openSansTextTheme(),
+        textTheme: GoogleFonts.kalamTextTheme(),
         navigationBarTheme: NavigationBarThemeData(
           labelTextStyle: MaterialStateProperty.resolveWith(
             (states) => TextStyle(
