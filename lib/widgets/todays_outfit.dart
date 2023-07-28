@@ -95,9 +95,13 @@ class TodaysOutfit extends StatelessWidget {
                           },
                         )
                       : const Center(
-                          child: Text(
-                            "No outfits selected",
-                            style: TextStyle(color: Colors.grey),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 32.0),
+                            child: Text(
+                              "View your daily outfits here by selecting them from closet",
+                              style: TextStyle(color: Colors.grey),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                 ),
