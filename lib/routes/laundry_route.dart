@@ -46,7 +46,7 @@ class LaundryRoute extends GetView<LaundryController> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Column(
+                    child: controller.basketList.isNotEmpty ? Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -63,7 +63,7 @@ class LaundryRoute extends GetView<LaundryController> {
                           ),
                         ),
                       ],
-                    ),
+                    ) : LaundryListView(list: controller.basketList),
                   )
                 ],
               ),
