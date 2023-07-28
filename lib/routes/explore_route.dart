@@ -13,11 +13,6 @@ class ExploreRoute extends StatelessWidget {
     final controller = Get.put(ExploreController(databaseProvider));
 
     return Scaffold(
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: () {},
-      //   label: const Text("Outfit"),
-      //   icon: const Icon(Icons.add),
-      // ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

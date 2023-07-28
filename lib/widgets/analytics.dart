@@ -64,7 +64,13 @@ class Analytics extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16.0),
-        const Chart(),
+        Obx(() {
+          if (controller.data['Clothes'] != "0") {
+            return const Chart();
+          } else {
+            return const SizedBox();
+          }
+        }),
       ],
     );
   }

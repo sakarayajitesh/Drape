@@ -40,7 +40,9 @@ class AnalyticsController extends GetxController {
     await Future.wait([countFuture, spentFuture, chartDataFuture])
         .then((results) {
       data["Clothes"] = results[0].first["count"].toString();
-      data["Spent"] = results[1].first["spent"].toString();
+      data["Spent"] =
+          (results[0].first["count"] != 0 ? results[1].first["spent"] : 0)
+              .toString();
       chartData.value = results[2];
     });
   }
