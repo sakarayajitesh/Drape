@@ -16,7 +16,7 @@ import '../model/item.dart';
 class ClosetController extends GetxController {
   final available = ["Shorts", "Shoe", "Shirt"];
 
-  var items = <Item>[];
+  var items = <Item>[].obs;
   var filteredItems = <Item>[].obs;
 
   RxBool hasFiltersApplied = false.obs;
@@ -44,7 +44,7 @@ class ClosetController extends GetxController {
   getItems({String condition = "", dynamic args}) async {
     final list = await databaseProvider.itemExecutor
         .read(condition: condition, args: args);
-    items = list;
+    items.value = list;
     filteredItems.value = list;
   }
 

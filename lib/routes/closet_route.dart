@@ -21,23 +21,24 @@ class ClosetRoute extends StatelessWidget {
         direction: Axis.vertical,
         crossAxisAlignment: WrapCrossAlignment.end,
         children: [
-          FloatingActionButton.small(
-            heroTag: "fab1",
-            onPressed: () async {
-              await Get.dialog(const FilterLayout());
-            },
-            child: Obx(
-              () => controller.hasFiltersApplied.value
-                  ? const Badge(child: Icon(Icons.filter_alt))
-                  : const Icon(Icons.filter_alt),
-            ),
-          ),
+          Obx(() => controller.items.isNotEmpty
+              ? FloatingActionButton.small(
+                  heroTag: "fab1",
+                  onPressed: () async {
+                    await Get.dialog(const FilterLayout());
+                  },
+                  child: controller.hasFiltersApplied.value
+                      ? const Badge(child: Icon(Icons.filter_alt))
+                      : const Icon(Icons.filter_alt),
+                )
+              : const SizedBox()),
           const SizedBox(
             height: 16.0,
           ),
           Obx(
             () => Visibility.maintain(
-              visible: controller.isFabVisible.value,
+              visible: controller.filteredItems.isNotEmpty &&
+                  controller.isFabVisible.value,
               child: FloatingActionButton.extended(
                 heroTag: "fab2",
                 onPressed: controller.onClickAddClothing,
@@ -50,39 +51,59 @@ class ClosetRoute extends StatelessWidget {
       ),
       body: SafeArea(
         child: Obx(
-          () => Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (controller.hasFiltersApplied.value)
-                const Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: FilterChipList(),
-                ),
-              Expanded(
-                child: MasonryGridView.count(
-                  controller: controller.scrollController,
-                  itemCount: controller.filteredItems.length,
-                  itemBuilder: (context, index) {
-                    final Item item = controller.filteredItems[index];
-                    return InkWell(
-                      onTap: () {
-                        controller.onItemSelected(item);
-                      },
-                      onDoubleTap: () {
-                        controller.deleteItem(item.id);
-                      },
-                      child: ItemTile(
-                        item: item,
+          () => controller.items.isNotEmpty
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (controller.hasFiltersApplied.value)
+                      const Padding(
+                        padding: EdgeInsets.all(12.0),
+                        child: FilterChipList(),
                       ),
-                    );
-                  },
-                  crossAxisCount: 4,
-                ),
-              ),
-            ],
-          ),
+                    Expanded(
+                      child: MasonryGridView.count(
+                        controller: controller.scrollController,
+                        itemCount: controller.filteredItems.length,
+                        itemBuilder: (context, index) {
+                          final Item item = controller.filteredItems[index];
+                          return InkWell(
+                            onTap: () {
+                              controller.onItemSelected(item);
+                            },
+                            onDoubleTap: () {
+                              controller.deleteItem(item.id);
+                            },
+                            child: ItemTile(
+                              item: item,
+                            ),
+                          );
+                        },
+                        crossAxisCount: 4,
+                      ),
+                    ),
+                  ],
+                )
+              : _emptyState(controller),
         ),
+      ),
+    );
+  }
+
+  Widget _emptyState(controller) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text("Your closet appears to be empty!"),
+          const SizedBox(height: 16.0),
+          FloatingActionButton.extended(
+            heroTag: "fab2",
+            onPressed: controller.onClickAddClothing,
+            label: const Text("Clothing"),
+            icon: const Icon(Icons.add),
+          ),
+        ],
       ),
     );
   }
