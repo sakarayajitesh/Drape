@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:drape/controllers/coach_marks_controller.dart';
 import 'package:drape/helpers/image_preprocessor.dart';
 import 'package:drape/routes/detail_route.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,8 @@ class ClosetController extends GetxController {
 
   RxBool hasFiltersApplied = false.obs;
 
+  final CoachMarksController coachMarksController = Get.find();
+
   RxMap<String, RxList<String>> appliedFilters = {
     "type": <String>[].obs,
     "occasion": <String>[].obs,
@@ -29,7 +32,10 @@ class ClosetController extends GetxController {
   final scrollController = ScrollController();
   final isFabVisible = true.obs;
 
-  ClosetController() {
+
+  @override
+  void onInit() {
+    super.onInit();
     getItems();
     appliedFilters.listen((filters) {
       applyFiltersTemp(filters);
@@ -38,6 +44,11 @@ class ClosetController extends GetxController {
       isFabVisible.value = scrollController.hasClients &&
           scrollController.position.userScrollDirection ==
               ScrollDirection.forward;
+    });
+    coachMarksController.navigationInfo.listen((p0) {
+      if(p0==coachMarksController.targetInfo[1]){
+        onClickAddClothing();
+      }
     });
   }
 

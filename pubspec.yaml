@@ -48,6 +48,7 @@ dependencies:
   google_fonts: ^5.1.0
   fl_chart: ^0.63.0
   syncfusion_flutter_charts: ^22.1.39
+  tutorial_coach_mark: ^1.2.9
 
 dev_dependencies:
   flutter_test:
