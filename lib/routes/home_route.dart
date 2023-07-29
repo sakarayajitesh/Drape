@@ -31,7 +31,8 @@ class HomeRoute extends StatelessWidget {
               label: 'Explore',
             ),
             NavigationDestination(
-              icon: Icon(Icons.commute),
+              selectedIcon: ImageIcon(AssetImage("assets/icons/closet_filled.png")),
+              icon: ImageIcon(AssetImage("assets/icons/closet.png")),
               label: 'Closet',
             ),
             NavigationDestination(
