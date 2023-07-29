@@ -47,7 +47,7 @@ dependencies:
   dart_date: ^1.2.2
   google_fonts: ^5.1.0
   fl_chart: ^0.63.0
-  syncfusion_flutter_charts: ^22.1.39
+  syncfusion_flutter_charts: ^22.2.5
 
 dev_dependencies:
   flutter_test:
