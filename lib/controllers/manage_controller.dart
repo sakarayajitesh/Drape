@@ -3,9 +3,9 @@ import 'package:drape/model/item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'laundry_list_view_controller.dart';
+import 'manage_list_view_controller.dart';
 
-class LaundryController extends GetxController
+class ManageController extends GetxController
     with GetSingleTickerProviderStateMixin {
 
   late final String _querySql;
@@ -21,7 +21,7 @@ class LaundryController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    Get.put(LaundryListViewController());
+    Get.put(ManageListViewController());
     _tabOptions = ["Fresh", "Hanger", "Basket"];
     _querySql = '''SELECT i.*, COUNT(o.id) AS worn_count
     FROM items AS i

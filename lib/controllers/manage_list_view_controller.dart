@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class LaundryListViewController extends GetxController{
+class ManageListViewController extends GetxController{
 
   final rowSpan = 5;
   final rowSpacing = 4.0;

@@ -1,11 +1,11 @@
-import 'package:drape/controllers/laundry_controller.dart';
-import 'package:drape/controllers/laundry_list_view_controller.dart';
+import 'package:drape/controllers/manage_controller.dart';
+import 'package:drape/controllers/manage_list_view_controller.dart';
 import 'package:drape/widgets/image_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LaundryRoute extends GetView<LaundryController> {
-  const LaundryRoute({Key? key}) : super(key: key);
+class ManageRoute extends GetView<ManageController> {
+  const ManageRoute({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +104,7 @@ class LaundryTabOption extends StatelessWidget {
   }
 }
 
-class LaundryListView extends GetView<LaundryListViewController>   {
+class LaundryListView extends GetView<ManageListViewController>   {
   final List list;
 
   const LaundryListView({super.key, required this.list});

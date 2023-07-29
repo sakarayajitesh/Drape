@@ -1,7 +1,7 @@
 import 'package:drape/controllers/home_controller.dart';
 import 'package:drape/routes/closet_route.dart';
 import 'package:drape/routes/explore_route.dart';
-import 'package:drape/routes/laundry_route.dart';
+import 'package:drape/routes/manage_route.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +11,7 @@ class HomeRoute extends StatelessWidget {
   final destinations = [
     const ExploreRoute(),
     const ClosetRoute(),
-    const LaundryRoute(),
+    const ManageRoute(),
   ];
 
   @override
