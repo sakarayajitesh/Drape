@@ -36,9 +36,9 @@ class HomeRoute extends StatelessWidget {
               label: 'Closet',
             ),
             NavigationDestination(
-              selectedIcon: Icon(Icons.local_laundry_service),
-              icon: Icon(Icons.local_laundry_service_outlined),
-              label: 'Laundry',
+              selectedIcon: ImageIcon(AssetImage("assets/icons/shirt_filled.png")),
+              icon: ImageIcon(AssetImage("assets/icons/shirt.png")),
+              label: 'Manage',
             ),
           ],
         ),
