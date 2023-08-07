@@ -98,6 +98,7 @@ class ClosetRoute extends StatelessWidget {
           const Text("Your closet appears to be empty!"),
           const SizedBox(height: 16.0),
           FloatingActionButton.extended(
+            key: controller.coachMarksController.key2,
             heroTag: "fab2",
             onPressed: controller.onClickAddClothing,
             label: const Text("Clothing"),

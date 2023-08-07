@@ -5,7 +5,7 @@ import 'package:drape/routes/laundry_route.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomeRoute extends StatelessWidget {
+class HomeRoute extends GetView<HomeController> {
   HomeRoute({Key? key}) : super(key: key);
 
   final destinations = [
@@ -16,7 +16,7 @@ class HomeRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(HomeController());
+    controller.checkCoachMarks(context);
     return Scaffold(
       bottomNavigationBar: Obx(
         () => NavigationBar(
@@ -24,17 +24,18 @@ class HomeRoute extends StatelessWidget {
             controller.selectedIndex.value = value;
           },
           selectedIndex: controller.selectedIndex.value,
-          destinations: const <Widget>[
-            NavigationDestination(
+          destinations: <Widget>[
+            const NavigationDestination(
               selectedIcon: Icon(Icons.explore),
               icon: Icon(Icons.explore_outlined),
               label: 'Explore',
             ),
             NavigationDestination(
-              icon: Icon(Icons.commute),
+              key: controller.coachMarksController.key1,
+              icon: const Icon(Icons.commute),
               label: 'Closet',
             ),
-            NavigationDestination(
+            const NavigationDestination(
               selectedIcon: Icon(Icons.local_laundry_service),
               icon: Icon(Icons.local_laundry_service_outlined),
               label: 'Laundry',
