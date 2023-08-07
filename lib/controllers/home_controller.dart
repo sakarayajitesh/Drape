@@ -1,7 +1,7 @@
 import 'package:drape/controllers/coach_marks_controller.dart';
 import 'package:get/get.dart';
 
-import 'laundry_controller.dart';
+import 'manage_controller.dart';
 
 class HomeController extends GetxController {
   var selectedIndex = 0.obs;
@@ -12,8 +12,8 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    Get.put(ManageController());
     coachMarksController = Get.find();
-    Get.put(LaundryController());
     coachMarksController.navigationInfo.listen((p0) {
       if(p0==coachMarksController.targetInfo[0]) selectedIndex.value = 1;
     });

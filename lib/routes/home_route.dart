@@ -1,7 +1,7 @@
 import 'package:drape/controllers/home_controller.dart';
 import 'package:drape/routes/closet_route.dart';
 import 'package:drape/routes/explore_route.dart';
-import 'package:drape/routes/laundry_route.dart';
+import 'package:drape/routes/manage_route.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +11,7 @@ class HomeRoute extends GetView<HomeController> {
   final destinations = [
     const ExploreRoute(),
     const ClosetRoute(),
-    const LaundryRoute(),
+    const ManageRoute(),
   ];
 
   @override
@@ -32,13 +32,14 @@ class HomeRoute extends GetView<HomeController> {
             ),
             NavigationDestination(
               key: controller.coachMarksController.key1,
-              icon: const Icon(Icons.commute),
+              selectedIcon: ImageIcon(AssetImage("assets/icons/closet_filled.png")),
+              icon: ImageIcon(AssetImage("assets/icons/closet.png")),
               label: 'Closet',
             ),
-            const NavigationDestination(
-              selectedIcon: Icon(Icons.local_laundry_service),
-              icon: Icon(Icons.local_laundry_service_outlined),
-              label: 'Laundry',
+            NavigationDestination(
+              selectedIcon: ImageIcon(AssetImage("assets/icons/shirt_filled.png")),
+              icon: ImageIcon(AssetImage("assets/icons/shirt.png")),
+              label: 'Manage',
             ),
           ],
         ),

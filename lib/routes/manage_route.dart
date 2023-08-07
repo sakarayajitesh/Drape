@@ -1,11 +1,11 @@
-import 'package:drape/controllers/laundry_controller.dart';
-import 'package:drape/controllers/laundry_list_view_controller.dart';
+import 'package:drape/controllers/manage_controller.dart';
+import 'package:drape/controllers/manage_list_view_controller.dart';
 import 'package:drape/widgets/image_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LaundryRoute extends GetView<LaundryController> {
-  const LaundryRoute({Key? key}) : super(key: key);
+class ManageRoute extends GetView<ManageController> {
+  const ManageRoute({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,32 +38,46 @@ class LaundryRoute extends GetView<LaundryController> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: LaundryListView(list: controller.freshList),
+                    child: LaundryListView(
+                      list: controller.freshList,
+                      keyWord: 'fresh',
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: LaundryListView(list: controller.hangerList),
+                    child: LaundryListView(
+                      list: controller.hangerList,
+                      keyWord: 'hanger',
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: controller.basketList.isNotEmpty ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        LaundryListView(list: controller.basketList),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 16.0),
-                          child: SizedBox(
-                            height: 50.0,
-                            width: double.infinity,
-                            child: FilledButton(
-                              onPressed: () {},
-                              child: const Text('Wash'),
-                            ),
+                    child: controller.basketList.isNotEmpty
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              LaundryListView(
+                                list: controller.basketList,
+                                keyWord: 'basket',
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 16.0),
+                                child: SizedBox(
+                                  height: 50.0,
+                                  width: double.infinity,
+                                  child: FilledButton(
+                                    onPressed: () {},
+                                    child: const Text('Wash'),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        : LaundryListView(
+                            list: controller.basketList,
+                            keyWord: 'basket',
                           ),
-                        ),
-                      ],
-                    ) : LaundryListView(list: controller.basketList),
                   )
                 ],
               ),
@@ -104,10 +118,11 @@ class LaundryTabOption extends StatelessWidget {
   }
 }
 
-class LaundryListView extends GetView<LaundryListViewController>   {
+class LaundryListView extends GetView<ManageListViewController> {
   final List list;
+  final String keyWord;
 
-  const LaundryListView({super.key, required this.list});
+  const LaundryListView({super.key, required this.list, required this.keyWord});
 
   @override
   Widget build(BuildContext context) {
@@ -125,10 +140,15 @@ class LaundryListView extends GetView<LaundryListViewController>   {
                   )
                   .toList(),
             )
-          : const SizedBox(
-              height: 100,
-              child: Center(child: Text("No items here")),
+          : Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                controller.getEmptyState(keyWord),
+                textAlign: TextAlign.center,
+              ),
             ),
+          ),
     );
   }
 }
