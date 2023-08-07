@@ -32,12 +32,19 @@ class HomeRoute extends GetView<HomeController> {
             ),
             NavigationDestination(
               key: controller.coachMarksController.key1,
-              selectedIcon: ImageIcon(AssetImage("assets/icons/closet_filled.png")),
-              icon: ImageIcon(AssetImage("assets/icons/closet.png")),
+              selectedIcon: const ImageIcon(
+                AssetImage("assets/icons/closet_filled.png"),
+                size: 24,
+              ),
+              icon: const ImageIcon(
+                AssetImage("assets/icons/closet.png"),
+                size: 24,
+              ),
               label: 'Closet',
             ),
-            NavigationDestination(
-              selectedIcon: ImageIcon(AssetImage("assets/icons/shirt_filled.png")),
+            const NavigationDestination(
+              selectedIcon:
+                  ImageIcon(AssetImage("assets/icons/shirt_filled.png")),
               icon: ImageIcon(AssetImage("assets/icons/shirt.png")),
               label: 'Manage',
             ),
