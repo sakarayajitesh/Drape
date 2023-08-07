@@ -7,7 +7,7 @@ class HomeController extends GetxController {
   var selectedIndex = 0.obs;
 
   late final CoachMarksController coachMarksController;
-  var _hasCoachMarkChecked = true;
+  var _hasCoachMarkChecked = false;
 
   @override
   void onInit() {
@@ -21,7 +21,7 @@ class HomeController extends GetxController {
 
   void checkCoachMarks(context){
     if(!_hasCoachMarkChecked) {
-      coachMarksController.checkForCoachMarks(context);
+      coachMarksController.checkAndShowCoachMarks(context);
       _hasCoachMarkChecked = true;
     }
   }

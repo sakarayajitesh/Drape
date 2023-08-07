@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 class CoachMarksController extends GetxController {
@@ -14,10 +15,22 @@ class CoachMarksController extends GetxController {
 
   final _textColor = Colors.white;
 
-  void checkForCoachMarks(context) {
-    Future.delayed(const Duration(seconds: 5), () {
+  void checkAndShowCoachMarks(context) async{
+    final showCoachMark = await isFirstTimeAppOpen();
+    if(showCoachMark){
       _initTargets(context);
-    });
+      markAppAsNotFirstTimeOpen();
+    }
+  }
+
+  Future<bool> isFirstTimeAppOpen() async{
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('first_time_app_open') ?? true;
+  }
+
+  void markAppAsNotFirstTimeOpen() async{
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('first_time_app_open', false);
   }
 
   void _initTargets(context) {
