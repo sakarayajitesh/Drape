@@ -8,6 +8,24 @@ import '../helpers/store.dart';
 class ItemDetail extends StatelessWidget {
   const ItemDetail({Key? key}) : super(key: key);
 
+  _openDeleteDialog(DetailController controller) {
+    Get.defaultDialog(
+      title: "Delete",
+      middleText: "Are you sure want to delete?",
+      textConfirm: 'Yes',
+      textCancel: 'No',
+      titlePadding: const EdgeInsets.only(top: 24.0),
+      contentPadding: const EdgeInsets.symmetric(vertical: 24.0),
+      onConfirm: (){
+        controller.deleteItem();
+        Get.back(closeOverlays: true, result: true);
+      },
+      onCancel: (){
+        Get.back(closeOverlays: true, canPop: false);
+      }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(DetailController());
@@ -21,6 +39,9 @@ class ItemDetail extends StatelessWidget {
                 controller.addToOutfit();
               } else if (value == "laundry") {
                 controller.addToLaundry();
+              } else if (value == "delete") {
+                _openDeleteDialog(controller);
+                // controller.addToLaundry();
               }
             },
             itemBuilder: (context) => <PopupMenuEntry>[

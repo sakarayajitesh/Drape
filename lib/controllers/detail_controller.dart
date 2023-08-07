@@ -1,6 +1,7 @@
 import 'package:drape/model/item.dart';
 import 'package:drape/model/outfit.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../main.dart';
@@ -32,5 +33,10 @@ class DetailController extends GetxController {
   addToLaundry() async {
     final laundry = Laundry.fromItem(item);
     await databaseProvider.laundryExecutor.add(laundry);
+  }
+
+  deleteItem() {
+    databaseProvider.itemExecutor.remove(item.id);
+    Fluttertoast.showToast(msg: "Item Deleted");
   }
 }
