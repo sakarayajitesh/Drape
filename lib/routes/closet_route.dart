@@ -72,7 +72,7 @@ class ClosetRoute extends StatelessWidget {
                               controller.onItemSelected(item);
                             },
                             onDoubleTap: () {
-                              controller.deleteItem(item.id);
+                              controller.addToOutfit(item);
                             },
                             child: ItemTile(
                               item: item,

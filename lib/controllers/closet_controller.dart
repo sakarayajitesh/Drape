@@ -13,6 +13,7 @@ import 'package:path_provider/path_provider.dart';
 import '../helpers/os_worker.dart';
 import '../main.dart';
 import '../model/item.dart';
+import '../model/outfit.dart';
 
 class ClosetController extends GetxController {
   final available = ["Shorts", "Shoe", "Shirt"];
@@ -91,6 +92,12 @@ class ClosetController extends GetxController {
     databaseProvider.itemExecutor.remove(id);
     Fluttertoast.showToast(msg: "Item Deleted");
     getItems();
+  }
+
+  addToOutfit(item) async {
+    final outfit = Outfit.fromItem(item);
+    databaseProvider.outfitExecutor.add(outfit);
+    Fluttertoast.showToast(msg: "Added to outfit");
   }
 
   applyFiltersTemp(filters) {
